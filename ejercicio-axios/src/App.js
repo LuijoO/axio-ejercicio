@@ -1,81 +1,71 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
 import "./App.css";
 
 function App() {
-  const [data, setData] =  useState([]);
-
-  const [title, setTitle] = useState('');
-  const [body, setBody] = useState('');
-
-
-  useEffect(() => {
-    axios
-      .get("https://jsonplaceholder.typicode.com/posts")
-      .then((res) => {
-        console.log(" Lo que tomamos de Data ::: ",res.data);
-        setData(res.data)
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
-  const postData = (e) => {
-    e.preventDefault();
-    axios.post('https://jsonplaceholder.typicode.com/posts', {
-      title,
-      body
-    }).then(res => console.log('posting data', res)).catch((err) => {
-      console.log(err);
-    });
-    
-  }
-
-  const postDelete = (id, e) => {
-    e.preventDefault();
-    axios.delete(`https://jsonplaceholder.typicode.com/posts/${id}`, {
-    }).then(res => console.log('Deleted!!', res)).catch((err) => {
-      console.log(err);
-    });
-    
-  }
-
-  const arr = data.map((data, index) => {
-    return(
-      <tr>
-        <td style={{border: '1px solid black'}}>{data.id}</td>
-        <td style={{border: '1px solid black'}}>{data.title}</td>
-        <td style={{border: '1px solid black'}}>{data.body}</td>
-        <td style={{border: '1px solid black'}}><button onClick={(e) => postDelete(data.id, e)}>Delete</button></td>
-      </tr>
-    )
-  })
-
   return (
     <div className="App">
-      <h1>Hola mundo, es mi segundo tuto de Axios</h1>
+      <header className="site-header">
+        <div className="top-border" aria-hidden="true" />
+        <div className="header-inner">
+          <a href="/" className="brand" aria-label="Astebece2">
+            <span className="brand-text">Astebece2</span>
+            <span className="brand-icon" aria-hidden="true" />
+          </a>
 
-      <form action="">
-        <label htmlFor="">Title</label>
-        <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
-        <hr />
-        <label htmlFor="">body</label>
-        <input type="text" value={body} onChange={(e) => setBody(e.target.value)} />
-        <hr />
-        <button onClick={postData}>POST</button>
-      </form>
+          <nav className="primary-nav" aria-label="Navegación principal">
+            <ul>
+              <li className="nav-item nav-home">
+                <a href="/" aria-label="Inicio">
+                  <span className="home-icon" aria-hidden="true" />
+                </a>
+              </li>
+              <li className="nav-item">
+                <details className="nav-dropdown">
+                  <summary>
+                    Patologías
+                    <span className="chevron" aria-hidden="true" />
+                  </summary>
+                  <ul className="dropdown-menu">
+                    <li><a href="/patologias/dermatologicas">Dermatológicas</a></li>
+                    <li><a href="/patologias/respiratorias">Respiratorias</a></li>
+                    <li><a href="/patologias/cardiovasculares">Cardiovasculares</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li className="nav-item"><a href="/cursos">Cursos</a></li>
+              <li className="nav-item"><a href="/eventos">Eventos</a></li>
+              <li className="nav-item"><a href="/servicios">Servicios</a></li>
+              <li className="nav-item">
+                <details className="nav-dropdown">
+                  <summary>
+                    Productos
+                    <span className="chevron" aria-hidden="true" />
+                  </summary>
+                  <ul className="dropdown-menu">
+                    <li><a href="/productos/nuevos">Nuevos lanzamientos</a></li>
+                    <li><a href="/productos/favoritos">Más vendidos</a></li>
+                    <li><a href="/productos/promociones">Promociones</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li className="nav-item"><a href="/actualidad">Actualidad</a></li>
+            </ul>
+          </nav>
 
-      <section>
-        <table>
-          <tr>
-            <th style={{border: '1px solid black'}}>Id</th>
-            <th style={{border: '1px solid black'}}>Title</th>
-            <th style={{border: '1px solid black'}}>Body</th>
-          </tr>
-          {arr}
-        </table>
-      </section>
+          <div className="header-utilities">
+            <a className="utility-link" href="/contacto">
+              <span className="utility-icon icon-inbox" aria-hidden="true" />
+              Contacto 24
+            </a>
+            <a className="utility-link" href="/garantias">
+              <span className="utility-icon icon-shield" aria-hidden="true" />
+              Garantías
+            </a>
+            <button className="avatar-button" type="button" aria-label="Perfil">
+              <span className="avatar" aria-hidden="true" />
+            </button>
+          </div>
+        </div>
+      </header>
     </div>
   );
 }
