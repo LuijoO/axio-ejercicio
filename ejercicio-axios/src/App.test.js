@@ -1,8 +1,10 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render, screen } from "@testing-library/react";
+import App from "./App";
 
-test('renders learn react link', () => {
+test("muestra los elementos principales del encabezado", () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  expect(screen.getByText(/Astebece2/i)).toBeInTheDocument();
+  expect(screen.getByText(/Patologías/i)).toBeInTheDocument();
+  expect(screen.getByRole("link", { name: /Contacto 24/i })).toBeInTheDocument();
+  expect(screen.getByRole("button", { name: /Perfil/i })).toBeInTheDocument();
 });
